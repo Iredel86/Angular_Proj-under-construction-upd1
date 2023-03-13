@@ -7,12 +7,14 @@ import { PhotoUploadComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TreatmentComponent } from './components/treatment/treatment.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: PhotoUploadComponent },
   { path: 'about', component: AboutComponent },

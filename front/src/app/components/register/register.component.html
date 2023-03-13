@@ -1,7 +1,7 @@
 <div [@routerTransition] class="login-page">
     <div class="row justify-content-md-center">
       <div class="col-md-4">
-        <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+        <img class="user-avatar" src="assets/images/WhatsApp Image 2023-02-25 at 12.27.13.jpeg" width="300px" />
         <h1>Reut Cosmetics</h1>
         <form role="form" (ngSubmit)="register(username.value, email.value, password.value, confirmPassword.value)">
           <div class="form-content">
@@ -22,8 +22,8 @@
             </div>
     
           </div>
-          <button class="btn rounded-btn" type="submit">{{'Register'}}</button>
-          <a routerLink="/login" class="btn rounded-btn">Log in</a>
+          <button class="btn rounded-btn" type="submit">{{'Register'}}</button >
+          <a routerLink="/login" class="btn rounded-btn">{{ 'Login' }}</a>
         </form>
       </div>
     </div>

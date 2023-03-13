@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { LogoutService } from './services/logout.service';
 import { routerTransition } from 'src/app/router.animations';
-
 
 @Component({
   selector: 'app-root',
@@ -8,13 +8,29 @@ import { routerTransition } from 'src/app/router.animations';
   styleUrls: ['./app.component.css'],
   animations: [routerTransition()]
 })
+export class AppComponent {
+  isAuthenticated = false;
 
+  constructor(private logoutService: LogoutService) {}
 
-export class AppComponent implements OnInit {
-  constructor() {}
+  ngOnInit() {
+    // Subscribe to access variable in LogoutService
+    this.logoutService.access.subscribe((access) => {
+      this.isAuthenticated = access;
+    });
+    // Check if user is logged in on app startup
+    this.isAuthenticated = this.logoutService.isLoggedIn();
+  }
 
-  ngOnInit() {}
+  logout() {
+    // Call the logout service to log out the user
+    this.logoutService.do_logout();
+  }
 }
+
+
+
+
 
 // export class AppComponent implements OnInit{
 //   constructor(private custSer: CustomerService, public loginServ: LoginService) {

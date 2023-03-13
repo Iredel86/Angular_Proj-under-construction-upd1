@@ -17,7 +17,7 @@ import { TreatmentComponent } from './components/treatment/treatment.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-
+import { LogoutComponent } from './components/logout/logout.component';
 @NgModule({
   declarations: [
     RegisterComponent,
@@ -30,6 +30,7 @@ import { RegisterComponent } from './components/register/register.component';
     CustomerComponent,
     TreatmentComponent,
     AppointmentComponent,
+    LogoutComponent,
   ],
   imports: [CommonModule, BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

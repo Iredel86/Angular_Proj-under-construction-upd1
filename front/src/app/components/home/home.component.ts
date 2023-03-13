@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HomeService } from 'src/app/services/home.service';
 
 interface FileUploadResponse {
   success: boolean;
@@ -18,7 +18,7 @@ export class PhotoUploadComponent {
   errorMessage: string | undefined;
   successMessage: string | undefined;
   
-  constructor(private http: HttpClient) {}
+  constructor(private homeService: HomeService) {}
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
@@ -30,25 +30,7 @@ export class PhotoUploadComponent {
       return;
     }
 
-    const allowedTypes = ['image/jpeg', 'image/png'];
-    if (!allowedTypes.includes(this.selectedFile.type)) {
-      this.errorMessage = 'File type not supported. Please upload a JPEG or PNG image.';
-      return;
-    }
-
-    if (this.selectedFile.size > 5 * 1024 * 1024) {
-      this.errorMessage = 'File size is too large. Please upload a file smaller than 5MB.';
-      return;
-    }
-
-    this.errorMessage = undefined;
-    this.successMessage = undefined;
-    this.isUploading = true;
-
-    const formData = new FormData();
-    formData.append('photo', this.selectedFile, this.selectedFile.name);
-
-    this.http.post<FileUploadResponse>('/api/upload', formData).subscribe({
+    this.homeService.uploadPhoto(this.selectedFile).subscribe({
       next: (response) => {
         this.isUploading = false;
         if (response.success) {
@@ -60,16 +42,12 @@ export class PhotoUploadComponent {
           this.errorMessage = response.message;
         }
       },
-      error: (error: HttpErrorResponse) => {
+      error: (error) => {
         this.isUploading = false;
-        if (error.status === 413) {
-          this.errorMessage = 'File size is too large. Please upload a file smaller than 5MB.';
-        } else {
-          this.errorMessage = 'File upload failed. Please try again later.';
-          console.log(error);
-        }
+        this.errorMessage = error.message;
       }
     });
   }
 }
+
 
